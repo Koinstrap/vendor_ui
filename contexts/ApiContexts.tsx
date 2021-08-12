@@ -157,6 +157,8 @@ function ApiContext_({ children }) {
     accountNumber,
     isFiat,
     cryptoAmount,
+    memoTag,
+    phoneNumber,
   }) => {
     if (!addressValidator.validate(address, currency.currency)) {
       return alert.error(
@@ -171,12 +173,16 @@ function ApiContext_({ children }) {
         bank,
         accountNumber,
         isFiat,
+        memoTag,
+        phoneNumber,
       },
       {
         amount: "required|numeric|min:1000",
         address: "required|alpha_num",
         bank: "required",
         accountNumber: "required|min:10|max:10",
+        phoneNumber: "required|min:11|max:11",
+        memoTag: "min:3|max:25",
       },
       {
         "required.amount": "Kindly enter a valid amount",
@@ -187,6 +193,9 @@ function ApiContext_({ children }) {
         "required.accountNumber": "Kindly enter a valid account number",
         "min.accountNumber": "Account account number must be 10 numbers",
         "max.accountNumber": "Account account number must be 10 numbers",
+        "required.phoneNumber": "Please enter a valid phone number",
+        "min.phoneNumber": "Phone number must be 11 numbers",
+        "max.phoneNumber": "Phone number must be 11 numbers",
       }
     );
 
@@ -205,6 +214,8 @@ function ApiContext_({ children }) {
       account_number: accountNumber,
       is_fiat: isFiat,
       currency: currency.currency,
+      memoTag,
+      phone_number: phoneNumber,
     });
 
     if (buyRequestPayload?.reference) {
@@ -220,6 +231,10 @@ function ApiContext_({ children }) {
       );
     }
 
+    if (buyRequestPayload.message == "Vendor cannont receive payments") {
+      alert.error("Can't receive payments, kindly contact support.");
+    }
+
     return {
       status: false,
     };
@@ -231,6 +246,7 @@ function ApiContext_({ children }) {
     accountNumber,
     isFiat,
     cryptoAmount,
+    phoneNumber,
   }) => {
     const validator = new Validator(
       {
@@ -238,11 +254,13 @@ function ApiContext_({ children }) {
         bank,
         accountNumber,
         isFiat,
+        phoneNumber,
       },
       {
         amount: "required|numeric|min:1000",
         bank: "required",
         accountNumber: "required|min:10|max:10",
+        phoneNumber: "min:11|max:11",
       },
       {
         "required.amount": "Please enter a valid amount",
@@ -251,6 +269,9 @@ function ApiContext_({ children }) {
         "required.accountNumber": "Please enter a valid account number",
         "min.accountNumber": "Account account number must be 10 numbers",
         "max.accountNumber": "Account account number must be 10 numbers",
+        "required.phoneNumber": "Please enter a valid phone number",
+        "min.phoneNumber": "Phone number must be 11 numbers",
+        "max.phoneNumber": "Phone number must be 11 numbers",
       }
     );
 
@@ -268,6 +289,7 @@ function ApiContext_({ children }) {
       account_number: accountNumber,
       is_fiat: isFiat,
       currency: currency.currency,
+      phone_number: phoneNumber,
     });
 
     if (buyRequestPayload?.reference) {

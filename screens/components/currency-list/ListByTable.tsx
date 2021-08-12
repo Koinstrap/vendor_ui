@@ -4,6 +4,7 @@ import { View, TouchableOpacity, Image } from "react-native";
 import useScreenSize from "../../../hooks/useScreenSize";
 import { useNavigation } from "@react-navigation/core";
 import { MainApiContext } from "../../../contexts/ApiContexts";
+import { useAlert } from "react-alert";
 
 import currencyLogos from "../../../assets/images/currencies";
 
@@ -11,7 +12,9 @@ export default function ListByTable({ theme }) {
   const isSmallDevice = useScreenSize();
   const navigation = useNavigation();
 
-  const { currencies = [], setCurrency } = useContext(MainApiContext);
+  const alert = useAlert();
+
+  const { currencies = [], setCurrency, settings } = useContext(MainApiContext);
 
   return (
     <View style={[!isSmallDevice && { alignItems: "center" }]}>
@@ -20,8 +23,8 @@ export default function ListByTable({ theme }) {
           {
             marginTop: 25,
             paddingBottom: 0,
-            marginBottom: 25,
-
+            marginBottom: 20,
+            // box-shadow: 0 29px 21px -34px rgb(23 49 84 / 82%)
             //   alignSelf: "center",
           },
           !isSmallDevice && {
@@ -32,6 +35,7 @@ export default function ListByTable({ theme }) {
             marginHorizontal: 10,
             padding: 15,
             borderRadius: 10,
+            elevation: 5,
           },
           isSmallDevice && {
             padding: 10,
@@ -42,6 +46,12 @@ export default function ListByTable({ theme }) {
           <CanPressOrNot
             isSmallDevice={isSmallDevice}
             onPress={() => {
+              if (!settings.is_available) {
+                alert.error(
+                  "Trading is temporarily disabled, Kindly try again later."
+                );
+                return;
+              }
               setCurrency(currency);
               navigation.navigate("Buy", { currency: currency.currency });
             }}
@@ -79,7 +89,11 @@ export default function ListByTable({ theme }) {
                 <Text appearance="hint" category="c1">
                   {currency.currency}
                 </Text>
-                {isSmallDevice && <Text>NGN 18,668,970.00</Text>}
+                {isSmallDevice && (
+                  <Text>
+                    NGN {(currency.price * currency.buy_rate).toLocaleString()}
+                  </Text>
+                )}
               </View>
 
               <View
@@ -122,6 +136,12 @@ export default function ListByTable({ theme }) {
                   <Button
                     size="small"
                     onPress={() => {
+                      if (!settings.is_available) {
+                        alert.error(
+                          "Trading is temporarily disabled, Kindly try again later."
+                        );
+                        return;
+                      }
                       setCurrency(currency);
                       navigation.navigate("Buy", {
                         currency: currency.currency,

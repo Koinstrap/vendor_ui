@@ -40,6 +40,7 @@ export default function SellScreen({ navigation }) {
   const [isFiat, setIsFiat] = useState(true);
   const [amount, setAmount] = useState("0.00");
   const [cryptoAmount, setCryptoAmount] = useState("0.00");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [bank, setBank] = useState("");
   const [selectBankIndex, setSelectBankIndex] = useState();
   const [accountNumber, setAccountNumber] = useState("");
@@ -58,12 +59,14 @@ export default function SellScreen({ navigation }) {
     if (!accountName) {
       return alert.error("Please enter valid account details");
     }
+
     const { status } = await sellCrypto({
       amount,
       bank,
       accountNumber,
       isFiat,
       cryptoAmount,
+      phoneNumber,
     });
 
     if (status) {
@@ -256,7 +259,27 @@ export default function SellScreen({ navigation }) {
             money for your crypto.
           </Text>
         </View>
+
         <View style={{ paddingHorizontal: 15 }}>
+          <View style={{ marginTop: 10, marginBottom: 15 }}>
+            <View style={{ marginBottom: 5 }}>
+              <Text category="s1">Phone Number</Text>
+            </View>
+
+            <View>
+              <Input
+                value={phoneNumber}
+                onChangeText={(e) => setPhoneNumber(e)}
+                style={{
+                  borderWidth: 1,
+                  borderColor: theme["color-primary-600"],
+                  borderRadius: 5,
+                }}
+                size="large"
+                placeholder="Enter phone number"
+              />
+            </View>
+          </View>
           {small ? (
             <>
               {" "}

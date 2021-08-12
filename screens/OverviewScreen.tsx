@@ -103,9 +103,9 @@ export default function OverviewScreen({ navigation }) {
               <View style={{ height: 5 }} />
               <Text category="p2">
                 Kindly make a payment of your buying amount to the account
-                details provided below. Your cryptocurrency will be relesed into
-                your receiving address only when payment has been successfuly
-                verified.
+                details provided below. Your cryptocurrency will be released
+                into your receiving address only when payment has been
+                successfuly verified.
               </Text>
             </View>
 
@@ -183,6 +183,7 @@ export default function OverviewScreen({ navigation }) {
                     flexDirection: "row",
                     alignItems: "center",
                     width: "100%",
+                    paddingBottom: 10,
                   }}
                 >
                   <View style={{ flex: 1 }}>
@@ -203,6 +204,15 @@ export default function OverviewScreen({ navigation }) {
                     />
                   </TouchableOpacity>
                 </View>
+
+                {order.memoTag ? (
+                  <>
+                    <Text category="h6">{order.currency} Address Memo/Tag</Text>
+                    <Text category="s1">{order.memoTag}</Text>
+                  </>
+                ) : (
+                  <></>
+                )}
               </View>
             </View>
           </>

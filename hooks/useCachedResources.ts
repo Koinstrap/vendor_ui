@@ -4,7 +4,20 @@ import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
 import { MainApiContext } from "../contexts/ApiContexts";
 
+import {
+  useFonts,
+  OpenSans_400Regular,
+  OpenSans_600SemiBold,
+  OpenSans_700Bold,
+} from "@expo-google-fonts/open-sans";
+
 export default function useCachedResources() {
+  let [fontsLoaded] = useFonts({
+    OpenSans_400Regular,
+    OpenSans_600SemiBold,
+    OpenSans_700Bold,
+  });
+
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const { loadingCurrencies, loadingSettings, settings } =
     React.useContext(MainApiContext);
@@ -32,5 +45,7 @@ export default function useCachedResources() {
     loadResourcesAndDataAsync();
   }, []);
 
-  return isLoadingComplete && !loadingCurrencies && !loadingSettings;
+  return (
+    isLoadingComplete && !loadingCurrencies && !loadingSettings && fontsLoaded
+  );
 }

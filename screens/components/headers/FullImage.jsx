@@ -2,7 +2,7 @@ import React from "react";
 import { Text } from "@ui-kitten/components";
 import { View, Image } from "react-native";
 
-export default function FullImage({ theme, intro, tagline }) {
+export default function FullImage({ theme, intro, tagline, image }) {
   return (
     <View
       style={{
@@ -14,7 +14,7 @@ export default function FullImage({ theme, intro, tagline }) {
       >
         <View style={{ height: "100%", width: "100%" }}>
           <Image
-            source={require("../../../assets/images/jarritos-mexican-soda-No_34j6QVSQ-unsplash.jpeg")}
+            source={{ uri: image }}
             style={{
               flex: 1,
               height: undefined,

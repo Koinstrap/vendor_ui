@@ -41,7 +41,9 @@ export default function BuyScreen({ navigation }) {
   const [isFiat, setIsFiat] = useState(true);
   const [amount, setAmount] = useState("0.00");
   const [cryptoAmount, setCryptoAmount] = useState("0.00");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+  const [memoTag, setMemoTag] = useState("");
   const [bank, setBank] = useState("");
   const [selectBankIndex, setSelectBankIndex] = useState();
   const [accountNumber, setAccountNumber] = useState("");
@@ -67,6 +69,8 @@ export default function BuyScreen({ navigation }) {
       accountNumber,
       isFiat,
       cryptoAmount,
+      memoTag,
+      phoneNumber,
     });
 
     if (status) {
@@ -161,7 +165,9 @@ export default function BuyScreen({ navigation }) {
             </Button>
           </View>
         </View>
+
         <Divider />
+
         <View style={{ paddingHorizontal: 15, marginTop: 20 }}>
           <View style={{ marginBottom: 5 }}>
             <Text category="s1">How much do you want to buy?</Text>
@@ -246,8 +252,9 @@ export default function BuyScreen({ navigation }) {
             </TouchableOpacity>
           </View>
         </View>
+
         <View
-          style={{ paddingHorizontal: 15, marginTop: 50, marginBottom: 35 }}
+          style={{ paddingHorizontal: 15, marginTop: 20, marginBottom: 35 }}
         >
           <View style={{ marginBottom: 5 }}>
             <Text category="s1">Receiving Address</Text>
@@ -283,8 +290,51 @@ export default function BuyScreen({ navigation }) {
               placeholder="Enter receiving address"
             />
           </View>
+
+          {currency?.has_memo || currency.has_destination_tag ? (
+            <>
+              <View style={{ marginBottom: 5, marginTop: 15 }}>
+                <Text category="s1">Receiving Address Memo/Tag</Text>
+              </View>
+
+              <View>
+                <Input
+                  value={memoTag}
+                  onChangeText={(e) => setMemoTag(e)}
+                  style={{
+                    borderWidth: 1,
+                    borderColor: theme["color-primary-600"],
+                    borderRadius: 5,
+                  }}
+                  accessoryRight={() => {
+                    return (
+                      <Button
+                        size="tiny"
+                        onPress={async () => {
+                          try {
+                            const clip = await Clipboard.getStringAsync();
+                            setMemoTag(clip);
+                          } catch (error) {
+                            alert.error("Could not read clipboard");
+                          }
+                        }}
+                      >
+                        Paste
+                      </Button>
+                    );
+                  }}
+                  size="large"
+                  placeholder="Enter receiving address memo/tag"
+                />
+              </View>
+            </>
+          ) : (
+            <></>
+          )}
         </View>
+
         <Divider />
+
         <View style={{ paddingHorizontal: 15, paddingVertical: 25 }}>
           <Text category="s1">Sending Account Details</Text>
 
@@ -297,10 +347,30 @@ export default function BuyScreen({ navigation }) {
             this transaction.
           </Text>
         </View>
+
         <View style={{ paddingHorizontal: 15 }}>
+          <View style={{ marginTop: 10, marginBottom: 15 }}>
+            <View style={{ marginBottom: 5 }}>
+              <Text category="s1">Phone Number</Text>
+            </View>
+
+            <View>
+              <Input
+                value={phoneNumber}
+                onChangeText={(e) => setPhoneNumber(e)}
+                style={{
+                  borderWidth: 1,
+                  borderColor: theme["color-primary-600"],
+                  borderRadius: 5,
+                }}
+                size="large"
+                placeholder="Enter phone number"
+              />
+            </View>
+          </View>
+
           {small ? (
             <>
-              {" "}
               <View style={{ flex: 1, paddingVertical: 15 }}>
                 <View style={{ marginBottom: 5 }}>
                   <Text category="s1">Select Bank</Text>

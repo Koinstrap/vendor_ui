@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
-import { Button, Icon, Layout, Text, useTheme } from "@ui-kitten/components";
-import { View, TouchableOpacity, Image, ScrollView } from "react-native";
+import React, { useContext } from "react";
+import { Layout, Text, useTheme } from "@ui-kitten/components";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 import FullColor from "./components/headers/FullColor";
 import FullImage from "./components/headers/FullImage";
 import HalfImage from "./components/headers/HalfImage";
@@ -8,14 +8,12 @@ import SplitColor from "./components/headers/SplitColor";
 import renderSwitch from "../hooks/renderSwitch";
 import ListByTable from "./components/currency-list/ListByTable";
 import ListByCards from "./components/currency-list/ListByCards";
-import useScreenSize from "../hooks/useScreenSize";
 import SingleNav from "./components/navbars/SingleNav";
 import SplitNav from "./components/navbars/SplitNav";
-import { useNavigation } from "@react-navigation/core";
 import { MainApiContext } from "../contexts/ApiContexts";
+import * as WebBrowser from "expo-web-browser";
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
   const theme = useTheme();
 
   const { settings } = useContext(MainApiContext);
@@ -50,9 +48,56 @@ export default function HomeScreen() {
         />
 
         <View style={{ alignItems: "center", paddingVertical: 20 }}>
-          <Text category="s1">{`${
-            settings.name
-          } ${new Date().getFullYear()}`}</Text>
+          <Text category="s1">
+            © {`${new Date().getFullYear()} ${settings.name}`}. All rights
+            reserved.
+          </Text>
+          {settings?.theme?.header.includes("image") && (
+            <View
+              style={{
+                flexDirection: "row",
+                marginBottom: 30,
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 10,
+              }}
+            >
+              <Text category="p2">Photo by </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  WebBrowser.openBrowserAsync(
+                    settings?.theme?.banner?.user.link
+                  );
+                }}
+              >
+                <Text
+                  category="p2"
+                  style={{
+                    textDecorationStyle: "solid",
+                    textDecorationLine: "underline",
+                  }}
+                >
+                  {settings?.theme?.banner?.user.username}{" "}
+                </Text>
+              </TouchableOpacity>
+              <Text category="p2">on </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  WebBrowser.openBrowserAsync("https://unsplash.com");
+                }}
+              >
+                <Text
+                  category="p2"
+                  style={{
+                    textDecorationStyle: "solid",
+                    textDecorationLine: "underline",
+                  }}
+                >
+                  Unsplash
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </ScrollView>
     </Layout>
@@ -67,12 +112,24 @@ function NavBar({ theme, current = "single-nav", settings }) {
 }
 
 function HeroBanner({ theme, current = "split-color", settings }) {
-  const { intro, tagline, ...rest } = settings.theme;
+  const { intro, tagline, banner, ...rest } = settings.theme;
 
   return renderSwitch(current, {
     "full-color": <FullColor theme={theme} {...{ intro, tagline }} />,
-    "full-image": <FullImage theme={theme} {...{ intro, tagline }} />,
-    "half-image": <HalfImage theme={theme} {...{ intro, tagline }} />,
+    "full-image": (
+      <FullImage
+        theme={theme}
+        {...{ intro, tagline }}
+        image={banner?.urls?.regular}
+      />
+    ),
+    "half-image": (
+      <HalfImage
+        theme={theme}
+        {...{ intro, tagline }}
+        image={banner?.urls?.regular}
+      />
+    ),
     "split-color": <SplitColor theme={theme} {...{ intro, tagline }} />,
   });
 }

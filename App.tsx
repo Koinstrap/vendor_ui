@@ -8,18 +8,16 @@ import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 
 import Template from "./screens";
+import { default as mapping } from "./assets/mapping.json";
 
 import * as eva from "@eva-design/eva";
-import {
-  ApplicationProvider,
-  IconRegistry,
-  Spinner,
-} from "@ui-kitten/components";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
 import ApiContext, { MainApiContext } from "./contexts/ApiContexts";
 import { positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+
 const options = {
   timeout: 3000,
   position: positions.TOP_RIGHT,
@@ -70,6 +68,7 @@ const AppWithLoading = ({ colorScheme }) => {
       <ApplicationProvider
         {...eva}
         theme={{ ...eva.light, ...(settings.theme?.colors || {}) }}
+        customMapping={mapping}
       >
         <Template colorScheme={colorScheme} />
         <StatusBar />

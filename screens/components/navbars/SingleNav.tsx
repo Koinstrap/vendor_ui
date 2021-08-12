@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Icon } from "@ui-kitten/components";
 import { View, TouchableOpacity, Image } from "react-native";
 import useScreenSize from "../../../hooks/useScreenSize";
 import { useNavigation } from "@react-navigation/core";
+import { MainApiContext } from "../../../contexts/ApiContexts";
 
 export default function SingleNav({ theme }) {
   const small = useScreenSize();
   const navigation = useNavigation();
+
+  const { settings } = useContext(MainApiContext);
+
   return (
     <View
       style={{
@@ -35,7 +39,7 @@ export default function SingleNav({ theme }) {
       >
         <View style={{ height: 30, width: 30 }}>
           <Image
-            source={require("../../../assets/images/slack-logo.jpeg")}
+            source={{ uri: settings?.logo }}
             style={{ height: undefined, width: undefined, flex: 1 }}
           />
         </View>
