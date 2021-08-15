@@ -53,7 +53,7 @@ export const requestHostInterceptor = () => (client) => async (action) => {
   const result = await fp.get();
   return {
     ...action,
-    endpoint: `https://koinstrap.test/api/v${action.endpoint}`,
+    endpoint: `https://koinstrap.com/api/v${action.endpoint}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

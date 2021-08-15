@@ -158,8 +158,8 @@ export default function OverviewScreen({ navigation }) {
               <Text category="p2">
                 Kindly make a payment of your selling amount to the address
                 provided below. Your payment will be released to your bank
-                account once your crypto has received at least payment one
-                blockchain confirmation.
+                account once your crypto has received at least one blockchain
+                confirmation.
               </Text>
             </View>
 
