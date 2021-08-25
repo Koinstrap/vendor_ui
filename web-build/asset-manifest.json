@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/static/js/app.1bd439cf.chunk.js",
-    "app.js.map": "/static/js/app.1bd439cf.chunk.js.map",
+    "app.js": "/static/js/app.8c831d6b.chunk.js",
+    "app.js.map": "/static/js/app.8c831d6b.chunk.js.map",
     "runtime~app.js": "/static/js/runtime~app.2e9f1821.js",
     "runtime~app.js.map": "/static/js/runtime~app.2e9f1821.js.map",
-    "static/js/2.6a966900.chunk.js": "/static/js/2.6a966900.chunk.js",
-    "static/js/2.6a966900.chunk.js.map": "/static/js/2.6a966900.chunk.js.map",
+    "static/js/2.4fd5588d.chunk.js": "/static/js/2.4fd5588d.chunk.js",
+    "static/js/2.4fd5588d.chunk.js.map": "/static/js/2.4fd5588d.chunk.js.map",
     "fonts/AntDesign.ttf": "/./fonts/AntDesign.ttf",
     "fonts/Entypo.ttf": "/./fonts/Entypo.ttf",
     "fonts/Feather.ttf": "/./fonts/Feather.ttf",
@@ -33,8 +33,9 @@
     "favicon-32.png": "/favicon-32.png",
     "favicon.ico": "/favicon.ico",
     "index.html": "/index.html",
+    "manifest.json": "/manifest.json",
     "serve.json": "/serve.json",
-    "static/js/2.6a966900.chunk.js.LICENSE.txt": "/static/js/2.6a966900.chunk.js.LICENSE.txt",
+    "static/js/2.4fd5588d.chunk.js.LICENSE.txt": "/static/js/2.4fd5588d.chunk.js.LICENSE.txt",
     "static/media/bitcoin.png": "/static/media/bitcoin.a4c16d5a.png",
     "static/media/bitcoincash.png": "/static/media/bitcoincash.ad822a4b.png",
     "static/media/bnb.png": "/static/media/bnb.db53d83a.png",
@@ -49,7 +50,7 @@
   },
   "entrypoints": [
     "static/js/runtime~app.2e9f1821.js",
-    "static/js/2.6a966900.chunk.js",
-    "static/js/app.1bd439cf.chunk.js"
+    "static/js/2.4fd5588d.chunk.js",
+    "static/js/app.8c831d6b.chunk.js"
   ]
 }
