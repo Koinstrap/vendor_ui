@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Button, Icon } from "@ui-kitten/components";
-import { View, TouchableOpacity, Image } from "react-native";
+import { View, TouchableOpacity, Image, Linking } from "react-native";
 import useScreenSize from "../../../hooks/useScreenSize";
 import { useNavigation } from "@react-navigation/core";
 
@@ -67,12 +67,19 @@ export default function SplitNav({ theme }) {
               }}
             >
               {!small ? (
-                <Button size="medium" style={{ borderRadius: 400 }}>
+                <Button
+                  size="medium"
+                  style={{ borderRadius: 400 }}
+                  onPress={() => Linking.openURL(`mailto: ${settings.email}`)}
+                >
                   Contact
                 </Button>
               ) : (
                 <>
-                  <TouchableOpacity activeOpacity={0.8}>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => Linking.openURL(`mailto: ${settings.email}`)}
+                  >
                     <Icon
                       name="email-outline"
                       height={30}

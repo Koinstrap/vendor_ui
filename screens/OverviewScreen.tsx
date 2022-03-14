@@ -183,7 +183,7 @@ export default function OverviewScreen({ navigation }) {
                     flexDirection: "row",
                     alignItems: "center",
                     width: "100%",
-                    paddingBottom: 10,
+                    // paddingBottom: 10,
                   }}
                 >
                   <View style={{ flex: 1 }}>
@@ -213,6 +213,10 @@ export default function OverviewScreen({ navigation }) {
                 ) : (
                   <></>
                 )}
+              </View>
+
+              <View style={{ paddingBottom: 15 }}>
+                <Text category="h6">{order.network} NETWORK</Text>
               </View>
             </View>
           </>

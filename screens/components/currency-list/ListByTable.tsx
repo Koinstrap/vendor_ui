@@ -3,7 +3,7 @@ import { Button, Text } from "@ui-kitten/components";
 import { View, TouchableOpacity, Image } from "react-native";
 import useScreenSize from "../../../hooks/useScreenSize";
 import { useNavigation } from "@react-navigation/core";
-import { MainApiContext } from "../../../contexts/ApiContexts";
+import { MainApiContext, domain } from "../../../contexts/ApiContexts";
 import { useAlert } from "react-alert";
 
 import currencyLogos from "../../../assets/images/currencies";
@@ -70,7 +70,9 @@ export default function ListByTable({ theme }) {
               <View style={{ paddingRight: 10 }}>
                 <View style={{ height: 30, width: 30 }}>
                   <Image
-                    source={currencyLogos[currency.currency]}
+                    source={{
+                      uri: `https://${domain}/img/currencies/${currency.currency.toLowerCase()}.png`,
+                    }}
                     style={{ height: undefined, width: undefined, flex: 1 }}
                   />
                 </View>

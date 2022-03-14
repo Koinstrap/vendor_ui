@@ -48,12 +48,14 @@ const contextInitial = {
 export const MainApiContext = React.createContext(contextInitial);
 const fpPromise = FingerprintJS.load();
 
+export const domain = "koinstrap.com";
+
 export const requestHostInterceptor = () => (client) => async (action) => {
   const fp = await fpPromise;
   const result = await fp.get();
   return {
     ...action,
-    endpoint: `https://koinstrap.com/api/v${action.endpoint}`,
+    endpoint: `https://${domain}/api/v${action.endpoint}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -159,6 +161,7 @@ function ApiContext_({ children }) {
     cryptoAmount,
     memoTag,
     phoneNumber,
+    network,
   }) => {
     if (!addressValidator.validate(address, currency.currency)) {
       return alert.error(
@@ -175,6 +178,7 @@ function ApiContext_({ children }) {
         isFiat,
         memoTag,
         phoneNumber,
+        network,
       },
       {
         amount: "required|numeric|min:1000",
@@ -183,6 +187,7 @@ function ApiContext_({ children }) {
         accountNumber: "required|min:10|max:10",
         phoneNumber: "required|min:11|max:11",
         memoTag: "min:3|max:25",
+        network: "required",
       },
       {
         "required.amount": "Kindly enter a valid amount",
@@ -196,6 +201,7 @@ function ApiContext_({ children }) {
         "required.phoneNumber": "Please enter a valid phone number",
         "min.phoneNumber": "Phone number must be 11 numbers",
         "max.phoneNumber": "Phone number must be 11 numbers",
+        "required.network": "Kindly enter a valid network",
       }
     );
 
@@ -216,6 +222,7 @@ function ApiContext_({ children }) {
       currency: currency.currency,
       memoTag,
       phone_number: phoneNumber,
+      network,
     });
 
     if (buyRequestPayload?.reference) {
@@ -247,6 +254,7 @@ function ApiContext_({ children }) {
     isFiat,
     cryptoAmount,
     phoneNumber,
+    network,
   }) => {
     const validator = new Validator(
       {
@@ -255,12 +263,14 @@ function ApiContext_({ children }) {
         accountNumber,
         isFiat,
         phoneNumber,
+        network,
       },
       {
         amount: "required|numeric|min:1000",
         bank: "required",
         accountNumber: "required|min:10|max:10",
         phoneNumber: "min:11|max:11",
+        network: "required",
       },
       {
         "required.amount": "Please enter a valid amount",
@@ -272,6 +282,7 @@ function ApiContext_({ children }) {
         "required.phoneNumber": "Please enter a valid phone number",
         "min.phoneNumber": "Phone number must be 11 numbers",
         "max.phoneNumber": "Phone number must be 11 numbers",
+        "required.network": "Kindly enter a valid network",
       }
     );
 
@@ -290,6 +301,7 @@ function ApiContext_({ children }) {
       is_fiat: isFiat,
       currency: currency.currency,
       phone_number: phoneNumber,
+      network,
     });
 
     if (buyRequestPayload?.reference) {

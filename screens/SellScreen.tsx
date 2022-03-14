@@ -45,6 +45,9 @@ export default function SellScreen({ navigation }) {
   const [selectBankIndex, setSelectBankIndex] = useState();
   const [accountNumber, setAccountNumber] = useState("");
   const [accountName, setAccountName] = useState("");
+  const [currencyNetwork, setCurrencyNetwork] = useState(
+    currency.networks.length >= 2 ? "" : currency.networks[0]
+  );
 
   useEffect(() => {
     if (isFiat) {
@@ -59,6 +62,9 @@ export default function SellScreen({ navigation }) {
     if (!accountName) {
       return alert.error("Please enter valid account details");
     }
+    if (!currencyNetwork) {
+      return alert.error("Please select a newtork");
+    }
 
     const { status } = await sellCrypto({
       amount,
@@ -67,6 +73,7 @@ export default function SellScreen({ navigation }) {
       isFiat,
       cryptoAmount,
       phoneNumber,
+      network: currencyNetwork,
     });
 
     if (status) {
@@ -244,6 +251,32 @@ export default function SellScreen({ navigation }) {
                 />
               </View>
             </TouchableOpacity>
+          </View>
+
+          <View style={{ marginTop: 15 }}>
+            <View style={{ marginBottom: 5 }}>
+              <Text category="s1">Select Network</Text>
+            </View>
+
+            <Select
+              disabled={currency.networks.length === 1}
+              size="large"
+              placeholder="Select a Network"
+              style={{
+                borderWidth: 1,
+                borderColor: theme["color-primary-600"],
+                borderRadius: 5,
+              }}
+              value={currencyNetwork}
+              onSelect={(index) =>
+                setCurrencyNetwork(currency.networks[index.row])
+              }
+              selectedIndex={selectBankIndex}
+            >
+              {currency.networks.map((network) => (
+                <SelectItem title={network} key={network} />
+              ))}
+            </Select>
           </View>
         </View>
 
