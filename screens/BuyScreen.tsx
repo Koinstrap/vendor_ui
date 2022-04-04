@@ -232,7 +232,7 @@ export default function BuyScreen({ navigation }) {
             }}
           >
             <Text category="s2">
-              Approximately{" "}
+              ~{" "}
               {isFiat
                 ? `${Number(cryptoAmount).toFixed(8)} ${currency.currency}`
                 : `NGN ${amount.toLocaleString()}`}
@@ -299,7 +299,9 @@ export default function BuyScreen({ navigation }) {
             />
           </View>
 
-          {currency?.has_memo || currency.has_destination_tag ? (
+          {currency?.has_memo ||
+          currency.has_destination_tag ||
+          ["BNB"].includes(currency.currency) ? (
             <>
               <View style={{ marginBottom: 5, marginTop: 15 }}>
                 <Text category="s1">Receiving Address Memo/Tag</Text>

@@ -75,17 +75,17 @@ export default function ListByCards({ theme }) {
                   </Text>
 
                   <View style={{}}>
-                    <Text>
+                    {/* <Text>
                       NGN{" "}
                       {(currency.price * currency.buy_rate).toLocaleString()}{" "}
-                    </Text>
-                    <Text
+                    </Text> */}
+                    {/* <Text
                       status={
                         currency.change_percentage >= 0 ? "success" : "danger"
                       }
                     >
                       {currency.change_percentage} %
-                    </Text>
+                    </Text> */}
                   </View>
                 </View>
               </View>
@@ -102,7 +102,7 @@ export default function ListByCards({ theme }) {
                   }}
                 >
                   <Text>Buy Rate</Text>
-                  <Text>{currency.buy_rate}/NGN</Text>
+                  <Text>{currency.buy_rate} /USD</Text>
                 </View>
                 <View
                   style={{
@@ -120,7 +120,7 @@ export default function ListByCards({ theme }) {
                   }}
                 >
                   <Text>Sell Rate</Text>
-                  <Text>{currency.sell_rate}/NGN</Text>
+                  <Text>{currency.sell_rate} /USD</Text>
                 </View>
               </View>
 

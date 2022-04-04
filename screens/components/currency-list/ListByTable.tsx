@@ -3,7 +3,11 @@ import { Button, Text } from "@ui-kitten/components";
 import { View, TouchableOpacity, Image } from "react-native";
 import useScreenSize from "../../../hooks/useScreenSize";
 import { useNavigation } from "@react-navigation/core";
-import { MainApiContext, domain } from "../../../contexts/ApiContexts";
+import {
+  MainApiContext,
+  protocol,
+  domain,
+} from "../../../contexts/ApiContexts";
 import { useAlert } from "react-alert";
 
 import currencyLogos from "../../../assets/images/currencies";
@@ -71,7 +75,7 @@ export default function ListByTable({ theme }) {
                 <View style={{ height: 30, width: 30 }}>
                   <Image
                     source={{
-                      uri: `https://${domain}/img/currencies/${currency.currency.toLowerCase()}.png`,
+                      uri: `${protocol}://${domain}/img/currencies/${currency.currency.toLowerCase()}.png`,
                     }}
                     style={{ height: undefined, width: undefined, flex: 1 }}
                   />
@@ -91,11 +95,11 @@ export default function ListByTable({ theme }) {
                 <Text appearance="hint" category="c1">
                   {currency.currency}
                 </Text>
-                {isSmallDevice && (
+                {/* {isSmallDevice && (
                   <Text>
                     NGN {(currency.price * currency.buy_rate).toLocaleString()}
                   </Text>
-                )}
+                )} */}
               </View>
 
               <View
@@ -108,27 +112,27 @@ export default function ListByTable({ theme }) {
                   },
                 ]}
               >
-                <Text>Buy: {currency.buy_rate}/NGN</Text>
+                <Text>Buy: {currency.buy_rate} /USD</Text>
                 <View style={{ paddingTop: 5 }} />
-                <Text>Sell: {currency.sell_rate}/NGN</Text>
+                <Text>Sell: {currency.sell_rate} /USD</Text>
               </View>
               {!isSmallDevice && (
                 <>
-                  <View style={{ flex: 1, paddingRight: 10 }}>
+                  {/* <View style={{ flex: 1, paddingRight: 10 }}>
                     <Text>
                       NGN{" "}
                       {(currency.price * currency.buy_rate).toLocaleString()}
                     </Text>
-                  </View>
+                  </View> */}
 
                   <View style={{ flex: 1, paddingRight: 10 }}>
-                    <Text
+                    {/* <Text
                       status={
                         currency.change_percentage >= 0 ? "success" : "danger"
                       }
                     >
                       {currency.change_percentage} %
-                    </Text>
+                    </Text> */}
                   </View>
                 </>
               )}

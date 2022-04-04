@@ -48,6 +48,7 @@ const contextInitial = {
 export const MainApiContext = React.createContext(contextInitial);
 const fpPromise = FingerprintJS.load();
 
+export const protocol = "https";
 export const domain = "koinstrap.com";
 
 export const requestHostInterceptor = () => (client) => async (action) => {
@@ -55,7 +56,7 @@ export const requestHostInterceptor = () => (client) => async (action) => {
   const result = await fp.get();
   return {
     ...action,
-    endpoint: `https://${domain}/api/v${action.endpoint}`,
+    endpoint: `${protocol}://${domain}/api/v${action.endpoint}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -148,7 +149,7 @@ function ApiContext_({ children }) {
 
   useEffect(() => {
     if (error && settingsPayload?.message == "vendor not found") {
-      window.location = "https://koinstrap.com/ks/app";
+      window.location = `${protocol}://${domain}/ks/app`;
     }
   }, [error]);
 
@@ -186,7 +187,7 @@ function ApiContext_({ children }) {
         bank: "required",
         accountNumber: "required|min:10|max:10",
         phoneNumber: "required|min:11|max:11",
-        memoTag: "min:3|max:25",
+        memoTag: "min:1|max:25",
         network: "required",
       },
       {

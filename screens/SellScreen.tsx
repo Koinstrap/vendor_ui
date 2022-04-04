@@ -51,10 +51,10 @@ export default function SellScreen({ navigation }) {
 
   useEffect(() => {
     if (isFiat) {
-      setCryptoAmount(amount / currency.fiat_sell_price);
+      setCryptoAmount(amount / currency.fiat_buy_price);
     }
     if (!isFiat) {
-      setAmount(cryptoAmount * currency.fiat_sell_price);
+      setAmount(cryptoAmount * currency.fiat_buy_price);
     }
   }, [isFiat, amount, cryptoAmount]);
 
@@ -225,7 +225,7 @@ export default function SellScreen({ navigation }) {
             }}
           >
             <Text category="s2">
-              Approximately{" "}
+              ~{" "}
               {isFiat
                 ? `${Number(cryptoAmount).toFixed(8)} ${currency.currency}`
                 : `NGN ${amount.toLocaleString()}`}
